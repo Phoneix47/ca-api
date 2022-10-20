@@ -17,6 +17,7 @@ router.post('/signup', async (req, res) => {
     const newUser = new User({
       email: req.body.email,
       password: hashPassword,
+      admin : req.body.admin,
     });
 
     console.log(newUser);
@@ -47,18 +48,20 @@ router.post('/login', async (req, res) => {
     const userData = {
       userId: user._id,
       email: user.email,
+      admin : user.admin
     };
 
     const accessToken = jwt.sign(
       userData,
-      process.env.ACCESS_TOKEN_SECRET
+      process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn : '1800'
+      }
     );
 
     res.status(200).json({ accessToken: accessToken });
 
-    console.log('try run');
   } catch (error) {
-    console.log('catch Run');
+
     res.status(404).json(error);
   }
 });

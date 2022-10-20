@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const Post = require('../models/Posts');
-const User = require('../models/Users');
+// const Post = require('../models/Posts');
+// const User = require('../models/Users');
+const AdminUser = require('../models/adminUser')
 const cloudinary = require('cloudinary');
 
 const authenticateToken = require('../routes/users');
