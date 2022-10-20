@@ -1,0 +1,8 @@
+install all the dependencies
+make server listen to port
+create .env to define port in it 
+connect mongodb
+intiliaize middlewears
+we made differenct routes users for user auth for authentication
+made signup route for user in auth
+
