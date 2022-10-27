@@ -5,10 +5,13 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
+const adminRoute = require('./routes/admin');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 dotenv.config();
 
@@ -25,11 +28,32 @@ app.use(helmet());
 app.use(morgan('common'));
 app.use(cors());
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'CA-Api',
+      version: '1.0.0',
+      description: 'A api backend of portal for CA',
+    },
+    servers: [
+      {
+        url: 'http://localhost:8080',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
+};
+
 app.use('/api/user', userRoute);
 
 app.use('/api/auth', authRoute);
 
-app.use('/api/posts', postRoute);
+app.use('/api/admin', adminRoute);
+
+const specs = swaggerJsDoc(options);
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.listen(process.env.PORT, () => {
   console.log('Server is running');

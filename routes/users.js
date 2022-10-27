@@ -25,15 +25,6 @@ function authenticateToken(req, res, next) {
 
 //get a profile
 
-
-
-
-
-
-
-
-
-
 // router.get('/profile', authenticateToken, async (req, res) => {
 //   try {
 //     const user = await User.findById(req.user.userId);
@@ -165,4 +156,4 @@ function authenticateToken(req, res, next) {
 //   }
 // });
 
-(module.exports = router), authenticateToken;
+(module.exports = authenticateToken), router;
