@@ -3,7 +3,9 @@ const User = require('../models/Users');
 
 const router = require('express').Router();
 
-// TESTING
+const directory = '/home/mrrobot/Desktop/CA/backend/uploaded_Docs/';
+
+//get the list of users expect admin
 
 router.get('/users', authenticateToken, async (req, res) => {
   try {
@@ -18,6 +20,7 @@ router.get('/users', authenticateToken, async (req, res) => {
   }
 });
 
+//delete user if u are admin
 router.delete('/user/:id', authenticateToken, async (req, res) => {
   console.log('deleting user');
   try {
@@ -42,6 +45,22 @@ router.delete('/user/:id', authenticateToken, async (req, res) => {
     res.status(500).json(err);
     console.log(err);
   }
+});
+
+//upload document files
+
+router.post('/doc', (req, res) => {
+  const fileName = Date.now() + '' + req.files.uploadfile.name;
+  const file = req.files.uploadfile;
+  let uploadPath = directory + fileName;
+
+  file.mv(uploadPath, (err) => {
+    console.log('ehej');
+    if (err) {
+      return res.send(err);
+    }
+  });
+  res.send(200);
 });
 
 module.exports = router;

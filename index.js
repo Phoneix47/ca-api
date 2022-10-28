@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const fileUpload = require('express-fileupload');
 
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan('common'));
 app.use(cors());
+app.use(fileUpload());
 
 const options = {
   definition: {

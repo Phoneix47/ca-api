@@ -1,8 +1,11 @@
-install all the dependencies
-make server listen to port
-create .env to define port in it 
-connect mongodb
-intiliaize middlewears
-we made differenct routes users for user auth for authentication
-made signup route for user in auth
+POST      /api/auth/login       login
+POST     /api/auth/signup       signup
+GET     /api/admin/users        get all users expect admin
+DELETE /api/admin/user/id       delete user expect admin
+POST  /api/admin/doc            upload document
+                                get list of doc of one user
+                                get no of document
+                                
+
+
 

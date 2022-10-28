@@ -3,11 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
-const wish = require('../routes/users');
-
 const User = require('../models/Users');
 
-/**
+/**Ac
  * @swagger
  *
  * components:
@@ -47,6 +45,7 @@ router.post('/signup', async (req, res) => {
     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     const newUser = new User({
+      name: req.body.name,
       email: req.body.email,
       password: hashPassword,
       admin: req.body.admin,
