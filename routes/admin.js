@@ -1,6 +1,6 @@
 const authenticateToken = require('./users');
 const User = require('../models/Users');
-
+const Doc = require('../models/Doc');
 const router = require('express').Router();
 
 const directory = '/home/mrrobot/Desktop/CA/backend/uploaded_Docs/';
@@ -49,7 +49,7 @@ router.delete('/user/:id', authenticateToken, async (req, res) => {
 
 //upload document files
 
-router.post('/doc', (req, res) => {
+router.post('/doc', async (req, res) => {
   const fileName = Date.now() + '' + req.files.uploadfile.name;
   const file = req.files.uploadfile;
   let uploadPath = directory + fileName;
@@ -60,7 +60,16 @@ router.post('/doc', (req, res) => {
       return res.send(err);
     }
   });
-  res.send(200);
+
+  const newDoc = new Doc({
+    documentType: req.body.documentType,
+    documentDesc: req.body.documentDesc,
+    docUrl: uploadPath,
+  });
+
+  const document = await newDoc.save();
+
+  res.status(200).json(document);
 });
 
 module.exports = router;
